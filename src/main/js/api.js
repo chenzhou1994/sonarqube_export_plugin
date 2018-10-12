@@ -63,7 +63,6 @@ export function findVersionsAndMeasures(project) {
                             for (let k = 0; k < numberOfMeasuresRetrieved; k++) {
                                 for (let d = 0; d < responseMetrics.measures[k].history.length; d++) {
                                     if (responseMetrics.measures[k].history[d].date === responseAnalyses.analyses[i].date) {
-                                        //console.log(responseMetrics.measures[k].metric);
                                         if (responseMetrics.measures[k].metric === "bugs") {
                                             result.bugs = responseMetrics.measures[k].history[d].value;
                                         } else if (responseMetrics.measures[k].metric === "vulnerabilities") {
@@ -82,13 +81,11 @@ export function findVersionsAndMeasures(project) {
                                     }
                                 }
                             }
-
                             data[numberOfVersions] = result;
                             numberOfVersions++;
                         }
                     }
                 }
-                //console.table(data);
                 return data;
             });
         }
@@ -96,7 +93,7 @@ export function findVersionsAndMeasures(project) {
 }
 
 
-export function ExcelEduce(project, options) {
+export function excelEduce(project, options) {
     var issuesResponse;
     var imageResponse;
     var measuresResponse;

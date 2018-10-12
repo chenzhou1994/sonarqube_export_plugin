@@ -7,7 +7,7 @@ import React from 'react';
 import MeasuresHistory from './MeasuresHistory'
 import {translate} from '../common/l10n.js'
 import {findVersionsAndMeasures} from '../api.js'
-import {ExcelEduce} from '../api.js'
+import {excelEduce} from '../api.js'
 
 
 export default class VersionsMeasuresHistoryApp extends React.PureComponent {
@@ -17,7 +17,8 @@ export default class VersionsMeasuresHistoryApp extends React.PureComponent {
     };
 
     componentDidMount() {
-        findVersionsAndMeasures(this.props.project).then(
+        const { project } = this.props;
+        findVersionsAndMeasures(project).then(
             (valuesReturnedByAPI) => {
                 this.setState({
                     data: valuesReturnedByAPI
@@ -26,12 +27,15 @@ export default class VersionsMeasuresHistoryApp extends React.PureComponent {
         );
     }
 
+    // 导出
     clickExportExcel() {
-        ExcelEduce(this.props.project, this.props.options);
+        const { project, options } = this.props
+        excelEduce(project, options);
     }
 
     render() {
         // Data Gathered: {JSON.stringify(this.state.data)}
+        const { data } = this.state;
         return (
             <div className="page page-limited">
                 <table className="data zebra">
@@ -48,14 +52,9 @@ export default class VersionsMeasuresHistoryApp extends React.PureComponent {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.data.map(
-                        (value, idx) =>
-                            <MeasuresHistory
-                                measure={value}
-                                key={idx}
-                            />
-                        )
-                    }
+                    { data.map((value, idx) =>
+                        <MeasuresHistory measure={value} key={idx}/>
+                        )}
                     </tbody>
                 </table>
                 <br/>
