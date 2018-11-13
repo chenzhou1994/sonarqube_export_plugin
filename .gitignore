@@ -1,2 +1,5 @@
 .idea/
-
+sonar-export-plugin.iml
+node/
+node_modules/
+target/
